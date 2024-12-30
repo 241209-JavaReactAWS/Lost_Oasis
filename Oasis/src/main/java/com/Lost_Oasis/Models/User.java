@@ -34,15 +34,15 @@ public class User {
     )
     private Set<Hotel> favorites;
 
-    public User(){
-    }
-
     public User(Role role, String name, String password, String email, int userId) {
         this.role = role;
         this.name = name;
         this.password = password;
         this.email = email;
         this.userId = userId;
+    }
+
+    public User() {
     }
 
     public int getUserId() {
