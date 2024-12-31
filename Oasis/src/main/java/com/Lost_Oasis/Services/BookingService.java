@@ -1,4 +1,4 @@
-package com.Lost_Oasis.Service;
+package com.Lost_Oasis.Services;
 
 import com.Lost_Oasis.Models.Booking;
 import com.Lost_Oasis.Repository.BookingRepository;
