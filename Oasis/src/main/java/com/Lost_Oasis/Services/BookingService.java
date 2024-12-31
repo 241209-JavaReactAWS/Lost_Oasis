@@ -17,19 +17,22 @@ public class BookingService {
     public BookingService(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
     }
-   //Create booking
+
+    //Create booking
     public Booking createBooking(Booking booking){
         return bookingRepository.save(booking);
     }
 
     //find all booking
- public List<Booking> findAllBooking(){
+    public List<Booking> findAllBooking(){
         return bookingRepository.findAll();
  }
- // find by ID
-    public Optional<Booking> findBookingByID(int Bookingid){
-        return bookingRepository.findById(Bookingid);
+
+    // find by ID
+    public Optional<Booking> findBookingByID(int BookingId){
+        return bookingRepository.findById(BookingId);
     }
+
     // find by user ID
     public Optional<Booking> findBookingByUser (int userID){
         return bookingRepository.findById(userID);
@@ -39,13 +42,15 @@ public class BookingService {
     public Optional<Booking> findBookingByHotel (int hotelID){
         return bookingRepository.findById(hotelID);
     }
+
     // find by room ID
     public Optional<Booking> findBookingByRoom (int roomID){
         return bookingRepository.findById(roomID);
     }
+
     // delete booking
-    public int deleteBooking(int Bookingid){
-        bookingRepository.deleteById(Bookingid);
+    public int deleteBooking(int BookingId){
+        bookingRepository.deleteById(BookingId);
         return 0;
     }
 }

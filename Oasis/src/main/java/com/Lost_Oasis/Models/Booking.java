@@ -2,6 +2,7 @@ package com.Lost_Oasis.Models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +13,19 @@ public class Booking {
     private int bookingId;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime createdBy;
+
+    private LocalDateTime lastUpdateBy;
+
+    @Column(nullable = false)
+    private LocalDate checkIn;
+
+    @Column(nullable = false)
+    private LocalDate checkOut;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus status;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
@@ -33,9 +46,12 @@ public class Booking {
     public Booking(){
     }
 
-    public Booking(int bookingId, LocalDateTime date, User user, Hotel hotel, Room room, User owner) {
+    public Booking(int bookingId, LocalDateTime createdBy, LocalDate checkIn, LocalDate checkOut, BookingStatus status, User user, Hotel hotel, Room room, User owner) {
         this.bookingId = bookingId;
-        this.date = date;
+        this.createdBy = createdBy;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.status = status;
         this.user = user;
         this.hotel = hotel;
         this.room = room;
@@ -50,12 +66,36 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getCreatedBy() {
+        return createdBy;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setCreatedBy(LocalDateTime createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getLastUpdateBy() {
+        return lastUpdateBy;
+    }
+
+    public void setLastUpdateBy(LocalDateTime lastUpdateBy) {
+        this.lastUpdateBy = lastUpdateBy;
+    }
+
+    public LocalDate getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public LocalDate getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(LocalDate checkOut) {
+        this.checkOut = checkOut;
     }
 
     public User getUser() {

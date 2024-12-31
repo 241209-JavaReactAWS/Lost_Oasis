@@ -2,6 +2,7 @@ package com.Lost_Oasis.Services;
 
 import com.Lost_Oasis.Repository.UserRepository;
 import com.Lost_Oasis.Models.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,19 @@ public class UserService {
             return account;
         }
         return null;
+    }
+
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+    @Transactional
+    public void updateUser(User user){
+        User oldUser = userRepository.findByUserId(user.getUserId());
+
+        if(oldUser != null){
+            oldUser.setImageUrl(user.getImageUrl());
+            oldUser.setName(user.getName());
+        }
     }
 }
