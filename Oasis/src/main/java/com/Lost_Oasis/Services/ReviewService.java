@@ -23,23 +23,23 @@ public class ReviewService {
     }
 
     // find Review by ID
-    public Optional<Review> getReviewById(Long reviewId) {
+    public Optional<Review> getReviewById(int reviewId) {
         return reviewRepository.findById(reviewId);
     }
 
     // find all Reviews for a specific User
-    public List<Review> getReviewsByUser(User user) {
-        return reviewRepository.findByUser(user);
+    public List<Review> getReviewsByUser(int userId) {
+        return reviewRepository.findByUser_UserId(userId);
     }
 
     // find all Reviews for a specific Hotel
-    public List<Review> getReviewsByHotel(Hotel hotel) {
-        return reviewRepository.findByHotel(hotel);
+    public List<Review> getReviewsByHotel(int hotelId) {
+        return reviewRepository.findByHotel_HotelId(hotelId);
     }
 
     // find all Reviews for a specific Booking
-    public List<Review> getReviewsByBooking(Booking booking) {
-        return reviewRepository.findByBooking(booking);
+    public List<Review> getReviewsByBooking(int bookingId) {
+        return reviewRepository.findByBooking_BookingId(bookingId);
     }
 
     // find all Reviews
@@ -48,7 +48,7 @@ public class ReviewService {
     }
 
     // Delete a Review
-    public void deleteReview(Long reviewId) {
+    public void deleteReview(int reviewId) {
         if (reviewRepository.existsById(reviewId)) {
             reviewRepository.deleteById(reviewId);
         } else {
