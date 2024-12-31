@@ -6,10 +6,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin(origins="http://localhost:8080",allowCredentials="true")
 @RestController
 public class UserController {
     private final UserService userService;
@@ -22,11 +22,11 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> registerHandler(@RequestBody User user){
         User possibleUser = userService.createNewUser(user);
-
+        System.out.println("trying to create");
         if(possibleUser != null){
             return new ResponseEntity<>(possibleUser, HttpStatus.CREATED);
         }
-
+        System.out.println("Failed to create");
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -37,7 +37,6 @@ public class UserController {
         if(possibleUser != null){
             session.setAttribute("email", possibleUser.getEmail());
             session.setAttribute("userId", possibleUser.getUserId());
-            session.setAttribute("name", possibleUser.getName());
             session.setAttribute("role", possibleUser.getRole());
 
             return new ResponseEntity<>(possibleUser, HttpStatus.OK);
@@ -52,5 +51,25 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // User Auth
+    @GetMapping("/user")
+    public ResponseEntity<User> getUserHandler(HttpSession session){
+        if(session.isNew() || session.getAttribute("email") == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
+        User account = userService.getUserByEmail((String) session.getAttribute("email"));
+
+        return ResponseEntity.ok(account);
+    }
+
+    @PatchMapping("/user")
+    public ResponseEntity<User> patchUserHandler(HttpSession session, @RequestBody User user){
+        if(session.isNew() || session.getAttribute("email") == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        userService.updateUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
