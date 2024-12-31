@@ -1,8 +1,8 @@
-package com.Lost_Oasis.DAOs;
+package com.Lost_Oasis.Repository;
 
 import com.Lost_Oasis.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserDAO  extends JpaRepository<User, Integer> {
+public interface UserRepository  extends JpaRepository<User, Integer> {
     User findByEmail(String email);
 }

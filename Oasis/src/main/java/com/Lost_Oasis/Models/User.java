@@ -34,7 +34,7 @@ public class User {
     )
     private Set<Hotel> favorites;
 
-    public User(Role role, String name, String password, String email, int userId) {
+    public User(int userId, String password, String email, String name, Role role) {
         this.role = role;
         this.name = name;
         this.password = password;

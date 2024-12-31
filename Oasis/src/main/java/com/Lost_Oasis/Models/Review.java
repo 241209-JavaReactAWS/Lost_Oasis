@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewId;
+    private int reviewId;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
@@ -37,11 +37,11 @@ public class Review {
     }
 
     // Getters and Setters
-    public Long getReviewId() {
+    public int getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(Long reviewId) {
+    public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
 
