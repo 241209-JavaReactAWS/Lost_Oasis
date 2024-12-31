@@ -1,0 +1,55 @@
+.navbar {
+    padding: 1rem 2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar .navbar-brand img {
+    max-width: 150px;
+  }
+  
+  .navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  
+  .navbar-dark .navbar-nav .nav-link:hover {
+    color: #f0c000;
+  }
+  
+  
+  .hero-section {
+    background-image: url('https://your-image-url.com/your-hotel-image.jpg'); /* I' am still not sure if give the navbar an image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    position: relative;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+  }
+  
+  .hero-content .btn {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    background-color: #f0c000;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .hero-content .btn:hover {
+    background-color: #e5b300;
+  }
