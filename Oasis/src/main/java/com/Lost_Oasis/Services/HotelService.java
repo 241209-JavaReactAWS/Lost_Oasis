@@ -1,4 +1,4 @@
-package com.Lost_Oasis.Service;
+package com.Lost_Oasis.Services;
 import com.Lost_Oasis.Models.Hotel;
 import com.Lost_Oasis.Models.User;
 import com.Lost_Oasis.Repository.HotelRepository;
@@ -32,6 +32,23 @@ public class HotelService {
         return hotelRepository.findAll();
     }
     //find Hotel by id
+
+
+
+    // Search hotels by keyword
+    public List<Hotel> searchByKeyword(String keyword) {
+        return hotelRepository.searchByKeyword(keyword);
+    }
+    //filtering hotels based on criteria by location, price ranges, and review, when user search hotels
+    public List<Hotel> filterHotels(String location, Double minPrice, Double maxPrice, Integer minRating) {
+        //Validate the input parameters (checking minPrice < maxPrice)
+        if (minPrice != null && maxPrice != null) {
+            throw new IllegalArgumentException("minPrice cannot be greater than maxPrice");
+        }
+
+        //Call reposiroty to fetch data
+        return hotelRepository.filterByCriteria(location, minPrice, maxPrice, minRating);
+    }
 
     public Optional<Hotel> findHotelById(int hotelID){
         return hotelRepository.findById(hotelID);

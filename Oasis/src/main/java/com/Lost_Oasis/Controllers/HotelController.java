@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
+import com.Lost_Oasis.Services.HotelService;
 
 import java.util.List;
 
@@ -16,16 +17,17 @@ import java.util.List;
     @RequestMapping("/hotel")
     public class HotelController {
 
-        private final HotelRepository hotelRepository;
+        private final HotelService hotelService;
 
-        public HotelController(HotelRepository hotelRepository) {
-            this.hotelRepository = hotelRepository;
-        }
+               //Constructor-based injection
+    public HotelController(HotelService hotelService) {
+         this.hotelService = hotelService;
+    }
 
         // Searching hotels by keyword
         @GetMapping("/searching")
         public ResponseEntity<List<Hotel>> searchHotels(@RequestParam String keyword) {
-            List<Hotel> hotels = hotelRepository.searchByKeyword(keyword);
+            List<Hotel> hotels = hotelService.searchByKeyword(keyword);
             return ResponseEntity.ok(hotels);
         }
 
@@ -37,9 +39,11 @@ import java.util.List;
                 @RequestParam(required = false) Double maxPrice,
                 @RequestParam(required = false) Integer minRating) {
 
-            List<Hotel> hotels = hotelRepository.filterByCriteria(location, minPrice, maxPrice, minRating);
+            // Delegate the filtering logic to the service
+            List<Hotel> hotels = hotelService.filterHotels(location, minPrice, maxPrice, minRating);
             return ResponseEntity.ok(hotels);
         }
-    }
+}
+
 
 
