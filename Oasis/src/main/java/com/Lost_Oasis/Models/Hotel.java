@@ -1,19 +1,21 @@
 package com.Lost_Oasis.Models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "hotel")
+@Table(name = "hotels")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hotelId;
-
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User owner;
 
     @Column(nullable = false)
     private String name;
@@ -24,65 +26,15 @@ public class Hotel {
     @Column(nullable = false)
     private String address;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
+
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelImage> images;
 
-    public Hotel(){
+    public void setUser(User user) {
+        this.owner = user;
     }
 
-    public Hotel(int hotelId, User owner, String name, String location, String address) {
-        this.hotelId = hotelId;
-        this.owner = owner;
-        this.name = name;
-        this.location = location;
-        this.address = address;
-    }
-
-    public int getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(int hotelId) {
-        this.hotelId = hotelId;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<HotelImage> getImages() {
-        return images;
-    }
-
-    public void setImages(List<HotelImage> images) {
-        this.images = images;
-    }
 }
