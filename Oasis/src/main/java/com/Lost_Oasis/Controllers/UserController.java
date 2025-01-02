@@ -22,11 +22,9 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> registerHandler(@RequestBody User user){
         User possibleUser = userService.createNewUser(user);
-        System.out.println("trying to create");
         if(possibleUser != null){
             return new ResponseEntity<>(possibleUser, HttpStatus.CREATED);
         }
-        System.out.println("Failed to create");
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -68,8 +66,9 @@ public class UserController {
         if(session.isNew() || session.getAttribute("email") == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+        int userId = (int)session.getAttribute("userId");
 
-        userService.updateUser(user);
+        userService.updateUser(userId, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
