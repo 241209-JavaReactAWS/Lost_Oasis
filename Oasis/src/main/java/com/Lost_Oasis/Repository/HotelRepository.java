@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     List<Hotel> findByOwner(User owner);
+
+    Hotel findByHotelId(int hotelId);
 }
