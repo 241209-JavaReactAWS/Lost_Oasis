@@ -22,11 +22,9 @@ public class UserService {
         User account = userRepository.findByEmail(user.getEmail());
 
         if(account == null){
-            System.out.println("created");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         }
-        System.out.println("failed");
         return null;
     }
 
@@ -43,12 +41,9 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(User user){
-        User oldUser = userRepository.findByUserId(user.getUserId());
-
-        if(oldUser != null){
-            oldUser.setImageUrl(user.getImageUrl());
-            oldUser.setName(user.getName());
-        }
+    public void updateUser(int userId, User user){
+        User oldUser = userRepository.findByUserId(userId);
+        oldUser.setImageUrl(user.getImageUrl());
+        oldUser.setName(user.getName());
     }
 }
