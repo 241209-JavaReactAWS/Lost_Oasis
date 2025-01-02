@@ -31,6 +31,10 @@ public class HotelService {
     public List<Hotel> findAllHotel(){
         return hotelRepository.findAll();
     }
+
+
+
+
     //find Hotel by id
 
 

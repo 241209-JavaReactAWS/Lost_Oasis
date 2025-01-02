@@ -26,6 +26,24 @@ import java.util.List;
          this.hotelService = hotelService;
     }
 
+    // Retrieve all hotels
+    @GetMapping("/all")
+    public ResponseEntity<List<Hotel>> getAllHotels() {
+        List<Hotel> hotels = hotelService.findAllHotel();
+        return ResponseEntity.ok(hotels);
+    }
+
+    //Endpoint to create a new hotel
+    @PostMapping("/create")
+    public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+        try {
+            Hotel createdHotel = hotelService.createHotel(hotel);
+            return new ResponseEntity<>(createdHotel, HttpStatus.CREATED); // Return 201 Created with the created hotel
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Return 400 Bad Request if something goes wrong
+        }
+    }
+
         // Searching hotels by keyword
         @GetMapping("/searching")
         public ResponseEntity<List<Hotel>> searchHotels(@RequestParam String keyword) {

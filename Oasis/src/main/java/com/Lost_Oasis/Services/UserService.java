@@ -30,6 +30,7 @@ public class UserService {
         return null;
     }
 
+
     public User loginUser(User user){
         User account = userRepository.findByEmail(user.getEmail());
         if(account != null && passwordEncoder.matches(user.getPassword(), account.getPassword())){
