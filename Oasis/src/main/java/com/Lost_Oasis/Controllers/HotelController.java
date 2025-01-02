@@ -27,9 +27,13 @@ import java.util.List;
     }
 
     // Retrieve all hotels
+
     @GetMapping("/all")
     public ResponseEntity<List<Hotel>> getAllHotels() {
         List<Hotel> hotels = hotelService.findAllHotel();
+        if (hotels.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Return 204 if no hotels are found
+        }
         return ResponseEntity.ok(hotels);
     }
 

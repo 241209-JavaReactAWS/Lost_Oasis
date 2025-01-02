@@ -12,6 +12,7 @@ import HotelDetails from './components/UserAccount/HotelDetails'
 import HotelSearch from './components/UserAccount/HotelSearch'
 import Register from './components/UserAccount/Register'
 import UserBookings from './components/UserAccount/UserBookings'
+import AllHotels from './components/hotel-rendering/AllHotels'
 
 function App() {
   
@@ -24,8 +25,10 @@ function App() {
       <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/hotel-search" element={<HotelSearch />} />
+
           <Route path="/hotel-details" element={<HotelDetails />} />
           <Route path="/user-bookings" element={<UserBookings />} />
+          <Route path="/hotels" element={<AllHotels />} />
 
           <Route path="/owner-register" element={<OwnerRegister />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />

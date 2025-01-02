@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(User user){
+    public void updateUser(int userId, User user){
         User oldUser = userRepository.findByUserId(user.getUserId());
 
         if(oldUser != null){

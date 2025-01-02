@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
+@CrossOrigin(origins="http://localhost:8080",allowCredentials="true")
 @RestController
 public class UserController {
     private final UserService userService;
@@ -18,30 +18,15 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
-//
-//    @PostMapping("/register")
-//    public ResponseEntity<User> registerHandler(@RequestBody User user){
-//        User possibleUser = userService.createNewUser(user);
-//        System.out.println("trying to create");
-//        if(possibleUser != null){
-//            return new ResponseEntity<>(possibleUser, HttpStatus.CREATED);
-//        }
-//        System.out.println("Failed to create");
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerHandler(@RequestBody User user) {
-        System.out.println("Attempting to register user: " + user.getEmail());
+    public ResponseEntity<User> registerHandler(@RequestBody User user){
         User possibleUser = userService.createNewUser(user);
-        if (possibleUser != null) {
-            System.out.println("User registered successfully: " + user.getEmail());
+        if(possibleUser != null){
             return new ResponseEntity<>(possibleUser, HttpStatus.CREATED);
         }
-        System.out.println("Failed to register user: " + user.getEmail());
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<User> loginHandler(@RequestBody User user, HttpSession session){
@@ -81,8 +66,9 @@ public class UserController {
         if(session.isNew() || session.getAttribute("email") == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+        int userId = (int)session.getAttribute("userId");
 
-        userService.updateUser(user);
+        userService.updateUser(userId, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

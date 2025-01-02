@@ -32,6 +32,10 @@ const NavBar: React.FC = () => {
                 <Link to="/" className="nav-link active">Home</Link>
               </li>
               <li className="nav-item">
+              <Link to="/hotels" className="nav-link">Hotels</Link>
+             </li>
+
+              <li className="nav-item">
                 <Link to="/rooms" className="nav-link">Rooms</Link>
               </li>
               <li className="nav-item">
