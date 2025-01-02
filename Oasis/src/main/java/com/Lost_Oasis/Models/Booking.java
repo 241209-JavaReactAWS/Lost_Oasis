@@ -46,6 +46,14 @@ public class Booking {
     public Booking(){
     }
 
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookingStatus status) {
+        this.status = status;
+    }
+
     public Booking(int bookingId, LocalDateTime createdBy, LocalDate checkIn, LocalDate checkOut, BookingStatus status, User user, Hotel hotel, Room room, User owner) {
         this.bookingId = bookingId;
         this.createdBy = createdBy;

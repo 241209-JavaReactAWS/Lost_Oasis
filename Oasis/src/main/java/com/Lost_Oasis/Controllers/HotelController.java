@@ -2,6 +2,7 @@ package com.Lost_Oasis.Controllers;
 
 import com.Lost_Oasis.Models.Hotel;
 import com.Lost_Oasis.Repository.HotelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
         private final HotelService hotelService;
 
                //Constructor-based injection
+    @Autowired
     public HotelController(HotelService hotelService) {
          this.hotelService = hotelService;
     }

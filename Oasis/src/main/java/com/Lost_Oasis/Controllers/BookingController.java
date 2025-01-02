@@ -1,45 +1,33 @@
 package com.Lost_Oasis.Controllers;
 
+import com.Lost_Oasis.DTO.BookingRequest;
 import com.Lost_Oasis.Models.*;
 import com.Lost_Oasis.Repository.BookingRepository;
 import com.Lost_Oasis.Repository.HotelRepository;
 import com.Lost_Oasis.Repository.RoomRepository;
 import com.Lost_Oasis.Repository.UserRepository;
+import com.Lost_Oasis.Services.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 
+@RestController
+@RequestMapping("/booking")
 public class BookingController {
 
-    UserRepository userRepository;
-    HotelRepository hotelRepository;
-    RoomRepository roomRepository;
-    BookingRepository bookingRepository;
+    private final BookingService bookingService;
 
+    @Autowired
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
-    @PostMapping("/bookings")
+    @PostMapping("/create")
     public ResponseEntity<String> createBooking(@RequestBody BookingRequest bookingRequest) {
-        Booking booking = new Booking();
-        booking.setCheckIn(bookingRequest.getCheckIn());
-        booking.setCheckOut(bookingRequest.getCheckOut());
-        booking.setCreatedBy(LocalDateTime.now());
-        booking.setLastUpdateBy(LocalDateTime.now());
-        booking.setStatus(BookingStatus.PENDING);
-
-        // Fetch and set related entities
-        User user = userRepository.findById(bookingRequest.getUserId()).orElseThrow();
-        Hotel hotel = hotelRepository.findById(bookingRequest.getHotelId()).orElseThrow();
-        Room room = roomRepository.findById(bookingRequest.getRoomId()).orElseThrow();
-        User owner = userRepository.findById(bookingRequest.getOwnerId()).orElseThrow();
-
-        booking.setUser(user);
-        booking.setHotel(hotel);
-        booking.setRoom(room);
-        booking.setOwner(owner);
-
-        bookingRepository.save(booking);
+        bookingService.createBooking(bookingRequest);
         return ResponseEntity.ok("Booking created successfully!");
     }
 
