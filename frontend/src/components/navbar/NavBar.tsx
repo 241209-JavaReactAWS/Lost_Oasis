@@ -45,14 +45,6 @@ const NavBar: React.FC = () => {
         </div>
       </nav>
 
-      
-      <section className="hero-section">
-        <div className="hero-content text-center">
-          <h1>Welcome to Our Luxury Hotel</h1>
-          <p>Experience comfort and luxury like never before.</p>
-          <Link to="/book-now" className="btn btn-primary">Book Your Stay</Link>
-        </div>
-      </section>
     </div>
   );
 };

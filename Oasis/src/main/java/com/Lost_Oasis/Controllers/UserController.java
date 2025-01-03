@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins="http://localhost:8080",allowCredentials="true")
+@CrossOrigin(origins="http://localhost:5173",allowCredentials="true")
 @RestController
 public class UserController {
     private final UserService userService;
@@ -71,4 +71,33 @@ public class UserController {
         userService.updateUser(userId, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/favorite")
+    public ResponseEntity<User> addHotelToFavoriteHandler(HttpSession session, @PathVariable int hotelId){
+        if(session.isNew() || session.getAttribute("email") == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        User returnedUser = userService.addHotelToFavorite((int)session.getAttribute("userId"), hotelId);
+
+        if(returnedUser == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/favorite")
+    public ResponseEntity<User> deleteHotelFromFavoriteHandler(HttpSession session, @PathVariable int hotelId){
+        if(session.isNew() || session.getAttribute("email") == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        User returnedUser = userService.deleteHotelFromFavorite((int)session.getAttribute("userId"), hotelId);
+
+        if(returnedUser == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
