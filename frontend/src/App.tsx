@@ -1,9 +1,7 @@
-import { useState } from 'react'
-
 import './App.css'
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
-import Login from './components/UserAccount/Login'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavBar from './components/navbar/NavBar'
+<<<<<<< HEAD
 import HotelManagement from './components/HotelOwnerAccount/HotelManagement'
 import OwnerDashboard from './components/HotelOwnerAccount/OwnerDashboard'
 import OwnerRegister from './components/HotelOwnerAccount/OwnerRegister'
@@ -13,6 +11,11 @@ import HotelSearch from './components/UserAccount/HotelSearch'
 import Register from './components/UserAccount/Register'
 import UserBookings from './components/UserAccount/UserBookings'
 import AllHotels from './components/hotel-rendering/AllHotels'
+=======
+import UserRegister from './pages/UserRegister'
+import OwnerRegister from './pages/OwnerRegister'
+import Login from './pages/login/Login'
+>>>>>>> main
 
 function App() {
   
@@ -20,8 +23,8 @@ function App() {
   return (
     <BrowserRouter> 
     
-      <NavBar/>
       <Routes>
+<<<<<<< HEAD
       <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/hotel-search" element={<HotelSearch />} />
@@ -36,6 +39,11 @@ function App() {
           <Route path="/reservations-management" element={<ReservationsManagement />} />
 
           <Route path="/" element={<HotelSearch />} />
+=======
+      <Route path="/register" element={<UserRegister />} />
+      <Route path="/owner-register" element={<OwnerRegister />} />
+      <Route path="login" element={<Login/>}/>
+>>>>>>> main
       </Routes>
     
     </BrowserRouter>

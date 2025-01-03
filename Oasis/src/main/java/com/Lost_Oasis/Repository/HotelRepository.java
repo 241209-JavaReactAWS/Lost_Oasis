@@ -14,6 +14,7 @@ import java.util.List;
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     List<Hotel> findByOwner(User owner);
 
+//<<<<<<< HEAD
 
     @Query("SELECT DISTINCT h FROM Hotel h JOIN h.rooms r " +
             "WHERE (:location IS NULL OR LOWER(h.location) = LOWER(:location)) " +
@@ -32,4 +33,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
             "OR LOWER(h.address) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Hotel> searchByKeyword(@Param("keyword") String keyword);
 
+//=======
+    Hotel findByHotelId(int hotelId);
+//>>>>>>> main
 }

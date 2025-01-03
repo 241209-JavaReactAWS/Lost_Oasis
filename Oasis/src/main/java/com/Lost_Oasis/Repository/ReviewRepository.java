@@ -1,17 +1,12 @@
 package com.Lost_Oasis.Repository;
 
-import com.Lost_Oasis.Models.Booking;
-import com.Lost_Oasis.Models.Hotel;
 import com.Lost_Oasis.Models.Review;
-import com.Lost_Oasis.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
-    List<Review> findByUser(User user);
-
-    List<Review> findByHotel(Hotel hotel);
-
-    List<Review> findByBooking(Booking booking);
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
+    List<Review> findByUser_UserId(int userId);
+    List<Review> findByHotel_HotelId(int hotelId);
+    List<Review> findByBooking_BookingId(int bookingId);
 }

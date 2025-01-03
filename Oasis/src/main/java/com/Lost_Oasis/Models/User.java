@@ -2,6 +2,7 @@ package com.Lost_Oasis.Models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,12 +27,16 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Hotel> hotels;
+
     @ManyToMany
     @JoinTable(
-            name = "user_hotel",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "hotelId")
+            name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hotel_id")
     )
+
     private Set<Hotel> favorites;
 
     public User(int userId, String password, String email, String name, Role role) {

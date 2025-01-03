@@ -2,31 +2,32 @@ package com.Lost_Oasis.Services;
 import com.Lost_Oasis.Models.Hotel;
 import com.Lost_Oasis.Models.User;
 import com.Lost_Oasis.Repository.HotelRepository;
+import com.Lost_Oasis.Repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
+    private final UserRepository userRepository;
 
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, UserRepository userRepository) {
         this.hotelRepository = hotelRepository;
+        this.userRepository = userRepository;
     }
-    //Create Hotel
 
-    public Hotel createHotel(Hotel hotel){
-       return hotelRepository.save(hotel);
-    }
-    // Delete Hotel
-    public void deleteHotel(int hotelId){
+    @Transactional
+    public Hotel createHotel(Hotel hotel) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (hotelRepository.existsById(hotelId)) {
-            hotelRepository.deleteById(hotelId);
-        } else {
-            throw new IllegalArgumentException("Hotel with ID " + hotelId + " not found");
-        }
+        hotel.setUser(user);
+        return hotelRepository.save(hotel);
     }
+
     //find all Hotel
     public List<Hotel> findAllHotel(){
         return hotelRepository.findAll();
@@ -57,6 +58,7 @@ public class HotelService {
     public Optional<Hotel> findHotelById(int hotelID){
         return hotelRepository.findById(hotelID);
     }
+
     //  all hotels owned by a specific user
     public List<Hotel> getHotelsByOwner(User owner) {
         return hotelRepository.findByOwner(owner);
